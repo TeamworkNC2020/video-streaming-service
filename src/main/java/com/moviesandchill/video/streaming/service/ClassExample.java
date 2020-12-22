@@ -1,4 +1,4 @@
-package com.mycompany.video.streaming.service;
+package com.moviesandchill.video.streaming.service;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
