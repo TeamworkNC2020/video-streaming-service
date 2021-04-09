@@ -7,3 +7,6 @@ target
 * .zip
 * .tar.gz
 * .rar
+* .iml
+*.idea
+*.iml
