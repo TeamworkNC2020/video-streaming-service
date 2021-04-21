@@ -4,6 +4,7 @@ import com.moviesandchill.video.streaming.service.dto.SessionDto;
 import com.moviesandchill.video.streaming.service.dto.SessionParDto;
 import com.moviesandchill.video.streaming.service.dto.WatcherDto;
 import com.moviesandchill.video.streaming.service.service.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class SessionController {
 
     private SessionService sessionService;
 
+    @Autowired
     public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
     }
@@ -46,7 +48,7 @@ public class SessionController {
         sessionService.deleteSessionById(sessionID);
     }
 
-    @PostMapping()
+    @PostMapping("/param")
     public SessionDto addSessionByParameters(@RequestBody SessionParDto sessionParDto) {
         return sessionService.addSessionByParameters(sessionParDto);
     }
