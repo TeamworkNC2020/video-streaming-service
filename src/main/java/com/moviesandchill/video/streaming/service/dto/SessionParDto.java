@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SessionDto {
+public class SessionParDto {
 
     private Long sessionID;
 
@@ -22,13 +23,5 @@ public class SessionDto {
 
     private LocalTime stopTime;
 
-    private State state;
-
-    public SessionDto(SessionParDto sessionParDto,State state) {
-        this.sessionID = sessionParDto.getSessionID();
-        this.filmID = sessionParDto.getFilmID();
-        this.organizerID = sessionParDto.getOrganizerID();
-        this.stopTime = sessionParDto.getStopTime();
-        this.state = state;
-    }
+    private Long stateID;
 }

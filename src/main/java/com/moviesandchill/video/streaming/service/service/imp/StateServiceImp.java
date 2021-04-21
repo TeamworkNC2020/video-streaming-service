@@ -18,8 +18,8 @@ public class StateServiceImp implements StateService {
     private StateRepository stateRepository;
     @Autowired
     private StateMapper stateMapper;
-    @Override
 
+    @Override
     public List<StateDto> getAllState() {
         List<State> states = stateRepository.findAll();
         return stateMapper.listStateToListDto(states);

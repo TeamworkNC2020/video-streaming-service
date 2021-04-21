@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "session")
@@ -29,4 +31,9 @@ public class Session {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkState")
     private State state;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "session_has_watcher", joinColumns = @JoinColumn(name = "sessionID", referencedColumnName = "IDsession"),
+            inverseJoinColumns = @JoinColumn(name = "watcherID", referencedColumnName = "IDwatcher"))
+    private List<Watcher> watchers = new ArrayList<>();
 }

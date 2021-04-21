@@ -1,6 +1,8 @@
 package com.moviesandchill.video.streaming.service.controller;
 
 import com.moviesandchill.video.streaming.service.dto.SessionDto;
+import com.moviesandchill.video.streaming.service.dto.SessionParDto;
+import com.moviesandchill.video.streaming.service.dto.WatcherDto;
 import com.moviesandchill.video.streaming.service.service.SessionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,4 +45,20 @@ public class SessionController {
     public void deleteSessionById(@PathVariable Long sessionID) {
         sessionService.deleteSessionById(sessionID);
     }
+
+    @PostMapping()
+    public SessionDto addSessionByParameters(@RequestBody SessionParDto sessionParDto) {
+        return sessionService.addSessionByParameters(sessionParDto);
+    }
+
+    @GetMapping("/{sessionID}/watchers")
+    public List<WatcherDto> getAllWatcherWithSession(@PathVariable Long sessionID) {
+        return sessionService.getAllWatcherWithSession(sessionID);
+    }
+
+    @PostMapping("/{sessionID}/addWatcher/{watcherID}")
+    public void addWatcherToSession(@PathVariable Long sessionID,@PathVariable Long watcherID) throws Exception {
+        sessionService.addWatcherToSession(watcherID,sessionID);
+    }
+
 }
