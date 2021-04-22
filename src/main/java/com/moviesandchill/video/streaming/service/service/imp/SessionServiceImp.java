@@ -66,8 +66,8 @@ public class SessionServiceImp implements SessionService {
     @Override
     public SessionDto addSessionByParameters(SessionParDto sessionParDto) {
         Optional<State> state = stateRepository.findById(sessionParDto.getStateID());
-        SessionDto sessionDto = new SessionDto(sessionParDto,state.get());
-        Session session = sessionMapper.dtoToSession(sessionDto);
+        Session session = sessionMapper.dtoToSession(sessionParDto);
+        session.setState(state.get());
         session = sessionRepository.save(session);
         return sessionMapper.sessionToDto(session);
     }

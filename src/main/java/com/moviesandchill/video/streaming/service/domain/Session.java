@@ -22,6 +22,9 @@ public class Session {
     @Column(name = "filmID")
     private Long filmID;
 
+    @Column(name = "chatID")
+    private Long chatID;
+
     @Column(name = "organizerID")
     private Long organizerID;
 

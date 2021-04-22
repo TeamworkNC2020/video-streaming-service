@@ -18,17 +18,9 @@ public class SessionDto {
 
     private Long filmID;
 
+    private Long chatID;
+
     private Long organizerID;
 
     private LocalTime stopTime;
-
-    private State state;
-
-    public SessionDto(SessionParDto sessionParDto,State state) {
-        this.sessionID = sessionParDto.getSessionID();
-        this.filmID = sessionParDto.getFilmID();
-        this.organizerID = sessionParDto.getOrganizerID();
-        this.stopTime = sessionParDto.getStopTime();
-        this.state = state;
-    }
 }

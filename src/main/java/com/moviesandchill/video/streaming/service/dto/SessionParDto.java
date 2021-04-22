@@ -19,6 +19,8 @@ public class SessionParDto {
 
     private Long filmID;
 
+    private Long chatID;
+
     private Long organizerID;
 
     private LocalTime stopTime;

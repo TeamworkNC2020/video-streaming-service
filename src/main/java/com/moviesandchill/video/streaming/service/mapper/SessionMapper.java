@@ -2,6 +2,7 @@ package com.moviesandchill.video.streaming.service.mapper;
 
 import com.moviesandchill.video.streaming.service.domain.Session;
 import com.moviesandchill.video.streaming.service.dto.SessionDto;
+import com.moviesandchill.video.streaming.service.dto.SessionParDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -15,6 +16,8 @@ import java.util.List;
 public interface SessionMapper {
 
     Session dtoToSession(SessionDto sessionDto);
+
+    Session dtoToSession(SessionParDto sessionParDto);
 
     SessionDto sessionToDto(Session session);
 
