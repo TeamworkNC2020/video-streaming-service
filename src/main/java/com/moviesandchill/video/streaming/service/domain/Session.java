@@ -33,7 +33,7 @@ public class Session {
     private State state;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "session_has_watcher", joinColumns = @JoinColumn(name = "sessionID", referencedColumnName = "IDsession"),
-            inverseJoinColumns = @JoinColumn(name = "watcherID", referencedColumnName = "IDwatcher"))
+    @JoinTable(name = "session_has_watcher", joinColumns = @JoinColumn(name = "sessionID", referencedColumnName = "sessionID"),
+            inverseJoinColumns = @JoinColumn(name = "watcherID", referencedColumnName = "watcherID"))
     private List<Watcher> watchers = new ArrayList<>();
 }
