@@ -1,22 +1,20 @@
 package com.moviesandchill.video.streaming.service.service.imp;
 
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class VideoService {
@@ -28,16 +26,21 @@ public class VideoService {
     private AmazonS3 s3client;
 
     public String updateUserLogo(long userId, MultipartFile file) throws IOException {
-        String pathKey = userId + "/" + file.getName();
+        String pathKey = userId + "/" + file.getOriginalFilename();
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+
         s3client.putObject(new PutObjectRequest(bucketName,
                 pathKey,
-                file.getInputStream(),new ObjectMetadata())
-                .withAccessControlList(s3client.getBucketAcl(bucketName)));;
-        return awsS3 + bucketName + "/" + pathKey;
+                file.getInputStream(), metadata)
+                .withAccessControlList(s3client.getBucketAcl(bucketName)));
+
+        return awsS3 + URLEncoder.encode(pathKey, StandardCharsets.UTF_8.toString());
     }
 
     @Autowired
-    public void setS3client(@Value("${endpoint.accessKey}") String accessKey,@Value("${endpoint.secretKey}") String secretKey) {
+    public void setS3client(@Value("${endpoint.accessKey}") String accessKey, @Value("${endpoint.secretKey}") String secretKey) {
         this.s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(
@@ -47,7 +50,6 @@ public class VideoService {
                 .withRegion(Regions.US_WEST_2)
                 .build();
     }
-
 
 
 }
