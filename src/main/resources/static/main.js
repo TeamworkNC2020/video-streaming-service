@@ -112,7 +112,7 @@ function sendMessage(message) {
 if (Hls.isSupported()) {
 
     let hls = new Hls();
-    hls.loadSource('https://moviescontainerhls.s3-us-west-2.amazonaws.com/sintelsintelhls.m3u8');
+    hls.loadSource('https://moviescontainerhls.s3-us-west-2.amazonaws.com/sintel/sintelsintelhls.m3u8');
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, function () {
         video.play();

@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "endpoint.accessKey",
+      "type": "java.lang.String",
+      "description": "aws accessKey"
+    }
+  ],
+  "properties": [
+    {
+      "name": "endpoint.secretKey",
+      "type": "java.lang.String",
+      "description": "aws secretKey"
+    }
+  ]
+}
