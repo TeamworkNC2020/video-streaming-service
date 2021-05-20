@@ -1,5 +1,7 @@
 package com.moviesandchill.video.streaming.service.controller;
 
+import com.moviesandchill.video.streaming.service.domain.Session;
+import com.moviesandchill.video.streaming.service.domain.State;
 import com.moviesandchill.video.streaming.service.dto.SessionDto;
 import com.moviesandchill.video.streaming.service.dto.SessionParDto;
 import com.moviesandchill.video.streaming.service.dto.WatcherDto;
@@ -7,7 +9,9 @@ import com.moviesandchill.video.streaming.service.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping(
@@ -36,6 +40,16 @@ public class SessionController {
     @GetMapping("/{sessionID}")
     public SessionDto getSessionById(@PathVariable Long sessionID) {
         return sessionService.getSessionById(sessionID);
+    }
+
+    @PostMapping("/{sessionID}/setTime")
+    public SessionDto setSessionTime(@PathVariable Long sessionID,@RequestBody  LocalTime newTime) {
+        return sessionService.setSessionTime(sessionID,newTime);
+    }
+
+    @PostMapping("/{sessionID}/setState/{stateID}")
+    public SessionDto setSessionState(@PathVariable Long sessionID,@PathVariable  Long stateID) {
+        return sessionService.setSessionState(sessionID,stateID);
     }
 
     @PostMapping()

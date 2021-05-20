@@ -4,6 +4,7 @@ import com.moviesandchill.video.streaming.service.dto.SessionDto;
 import com.moviesandchill.video.streaming.service.dto.SessionParDto;
 import com.moviesandchill.video.streaming.service.dto.WatcherDto;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public interface SessionService {
@@ -17,6 +18,10 @@ public interface SessionService {
     SessionDto addSession(SessionDto sessionDto);
 
     void deleteSessionById(Long sessionID);
+
+    SessionDto setSessionTime(Long sessionID,LocalTime newTime);
+
+    SessionDto setSessionState(Long sessionID,Long stateID);
 
     SessionDto addSessionByParameters(SessionParDto sessionParDto);
 

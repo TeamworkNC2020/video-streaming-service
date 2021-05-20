@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,29 @@ public class SessionServiceImp implements SessionService {
     @Override
     public void deleteSessionById(Long sessionID) {
         sessionRepository.deleteById(sessionID);
+    }
+
+    @Override
+    public SessionDto setSessionTime(Long sessionID, LocalTime newTime) {
+        Optional<Session> session = sessionRepository.findById(sessionID);
+        if(session.isPresent()){
+            session.get().setStopTime(newTime);
+            sessionRepository.save(session.get());
+            return sessionMapper.sessionToDto(session.get());
+        }
+        return null;
+    }
+
+    @Override
+    public SessionDto setSessionState(Long sessionID, Long stateID) {
+        Optional<Session> session = sessionRepository.findById(sessionID);
+        Optional<State> state = stateRepository.findById(stateID);
+        if(session.isPresent() && state.isPresent()){
+            session.get().setState(state.get());
+            sessionRepository.save(session.get());
+            return sessionMapper.sessionToDto(session.get());
+        }
+        return null;
     }
 
     @Override
