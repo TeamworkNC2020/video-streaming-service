@@ -21,6 +21,8 @@ public interface SessionMapper {
 
     SessionDto sessionToDto(Session session);
 
+    SessionParDto sessionToParDto(Session session);
+
     List<Session> listDtoToListSession(List<SessionDto> sessionDtoList);
 
     List<SessionDto> listSessionToListDto(List<Session> sessionList);

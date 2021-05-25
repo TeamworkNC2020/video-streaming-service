@@ -47,9 +47,14 @@ public class SessionServiceImp implements SessionService {
     }
 
     @Override
-    public SessionDto getSessionById(Long sessionID) {
+    public SessionParDto getSessionById(Long sessionID) {
         Optional<Session> session = sessionRepository.findById(sessionID);
-        return session.map(sessionMapper::sessionToDto).orElse(null);
+        if(session.isPresent()){
+            SessionParDto sessionParDto = sessionMapper.sessionToParDto(session.get());
+            sessionParDto.setStateID(session.get().getState().getStateID());
+            return sessionParDto;
+        }
+        return null;
     }
 
     @Override

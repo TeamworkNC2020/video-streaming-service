@@ -13,7 +13,7 @@ public interface SessionService {
 
     void deleteAllSession();
 
-    SessionDto getSessionById(Long sessionID);
+    SessionParDto getSessionById(Long sessionID);
 
     SessionDto addSession(SessionDto sessionDto);
 

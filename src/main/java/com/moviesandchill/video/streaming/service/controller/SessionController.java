@@ -38,7 +38,7 @@ public class SessionController {
     }
 
     @GetMapping("/{sessionID}")
-    public SessionDto getSessionById(@PathVariable Long sessionID) {
+    public SessionParDto getSessionById(@PathVariable Long sessionID) {
         return sessionService.getSessionById(sessionID);
     }
 

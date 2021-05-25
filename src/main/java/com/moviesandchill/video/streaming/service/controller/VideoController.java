@@ -22,5 +22,10 @@ public class VideoController {
         return videoService.updateUserLogo(userId, file);
     }
 
+    @GetMapping(path = "/uploadtest")
+    public void updateUserLogo() throws IOException {
+        videoService.uploadVideo();
+    }
+
 
 }
