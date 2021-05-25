@@ -1,5 +1,6 @@
 package com.moviesandchill.video.streaming.service.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.moviesandchill.video.streaming.service.domain.Session;
 import com.moviesandchill.video.streaming.service.domain.State;
 import com.moviesandchill.video.streaming.service.dto.SessionDto;
@@ -42,14 +43,11 @@ public class SessionController {
         return sessionService.getSessionById(sessionID);
     }
 
-    @PostMapping("/{sessionID}/setTime")
-    public SessionDto setSessionTime(@PathVariable Long sessionID,@RequestBody  LocalTime newTime) {
-        return sessionService.setSessionTime(sessionID,newTime);
-    }
-
-    @PostMapping("/{sessionID}/setState/{stateID}")
-    public SessionDto setSessionState(@PathVariable Long sessionID,@PathVariable  Long stateID) {
-        return sessionService.setSessionState(sessionID,stateID);
+    @PostMapping("/{sessionID}/setTimeAndState")
+    public void setSessionTimeAndState(@PathVariable Long sessionID, @RequestBody JsonNode jsonNode) throws Exception {
+        LocalTime newTime = LocalTime.parse(jsonNode.get("newTime").asText());
+        Long stateID = jsonNode.get("stateID").asLong();
+        sessionService.setSessionTimeAndState(sessionID,newTime,stateID);
     }
 
     @PostMapping()

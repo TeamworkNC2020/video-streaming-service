@@ -51,7 +51,9 @@ public class SessionServiceImp implements SessionService {
         Optional<Session> session = sessionRepository.findById(sessionID);
         if(session.isPresent()){
             SessionParDto sessionParDto = sessionMapper.sessionToParDto(session.get());
-            sessionParDto.setStateID(session.get().getState().getStateID());
+            if(session.get().getState() != null){
+                sessionParDto.setStateID(session.get().getState().getStateID());
+            }
             return sessionParDto;
         }
         return null;
@@ -70,26 +72,12 @@ public class SessionServiceImp implements SessionService {
     }
 
     @Override
-    public SessionDto setSessionTime(Long sessionID, LocalTime newTime) {
-        Optional<Session> session = sessionRepository.findById(sessionID);
-        if(session.isPresent()){
-            session.get().setStopTime(newTime);
-            sessionRepository.save(session.get());
-            return sessionMapper.sessionToDto(session.get());
-        }
-        return null;
-    }
-
-    @Override
-    public SessionDto setSessionState(Long sessionID, Long stateID) {
-        Optional<Session> session = sessionRepository.findById(sessionID);
-        Optional<State> state = stateRepository.findById(stateID);
-        if(session.isPresent() && state.isPresent()){
-            session.get().setState(state.get());
-            sessionRepository.save(session.get());
-            return sessionMapper.sessionToDto(session.get());
-        }
-        return null;
+    public void setSessionTimeAndState(Long sessionID, LocalTime newTime, Long stateID) throws Exception {
+        Session session = sessionRepository.findById(sessionID).orElseThrow();
+        State state = stateRepository.findById(stateID).orElseThrow();
+        session.setStopTime(newTime);
+        session.setState(state);
+        sessionRepository.save(session);
     }
 
     @Override

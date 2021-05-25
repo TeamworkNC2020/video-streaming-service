@@ -19,9 +19,7 @@ public interface SessionService {
 
     void deleteSessionById(Long sessionID);
 
-    SessionDto setSessionTime(Long sessionID,LocalTime newTime);
-
-    SessionDto setSessionState(Long sessionID,Long stateID);
+    void setSessionTimeAndState(Long sessionID, LocalTime newTime, Long stateID) throws Exception;
 
     SessionDto addSessionByParameters(SessionParDto sessionParDto);
 
