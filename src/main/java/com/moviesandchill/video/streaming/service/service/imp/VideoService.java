@@ -14,6 +14,8 @@ import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 @Service
+@EnableAsync
 public class VideoService {
 
     private final String awsS3Logo = "https://logouser.s3-us-west-2.amazonaws.com/";
@@ -63,6 +66,11 @@ public class VideoService {
     }
 
     public void uploadVideo(long filmId,MultipartFile file) throws IOException {
+        uploadVideoAsync(filmId,file);
+    }
+
+    @Async
+    public void uploadVideoAsync(long filmId,MultipartFile file) throws IOException {
         Files.createDirectory(Paths.get(inputDirectory + "\\" + filmId));
         Files.createDirectory(Paths.get(outputDirectory + "\\" + filmId));
         String inputDir = inputDirectory + "\\" + filmId + "\\input.mp4";
