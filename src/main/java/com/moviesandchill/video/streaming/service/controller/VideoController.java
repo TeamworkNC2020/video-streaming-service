@@ -23,8 +23,13 @@ public class VideoController {
     }
 
     @PostMapping(path = "/{filmId}/uploadVideo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void uploadVideo(@PathVariable long filmId,@RequestPart("file") MultipartFile file) throws IOException {
-        videoService.uploadVideo(filmId,file);
+    public String uploadVideo(@PathVariable long filmId,@RequestPart("file") MultipartFile file) throws IOException {
+        return videoService.uploadVideo(filmId,file);
+    }
+
+    @PostMapping(path = "/{filmId}/uploadFilmImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String uploadFilmImage(@PathVariable long filmId,@RequestPart("file") MultipartFile file) throws IOException {
+        return videoService.uploadFilmImage(filmId,file);
     }
 
 }

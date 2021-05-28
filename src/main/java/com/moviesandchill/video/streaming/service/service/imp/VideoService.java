@@ -28,13 +28,11 @@ import java.util.Arrays;
 public class VideoService {
 
     private final String awsS3Logo = "https://logouser.s3-us-west-2.amazonaws.com/";
-
     private final String awsS3HLS = "https://moviescontainerhls.s3-us-west-2.amazonaws.com/";
-
+    private final String awsS3Film = "https://moviespictures.s3-us-west-2.amazonaws.com/";
     private String bucketLogoName = "logouser";
-
     private String bucketHLSName = "moviescontainerhls";
-
+    private String bucketFilmName = "moviespictures";
     private AmazonS3 s3client;
 
     @Value("${ffmpeg.ffmpeg_path}")
@@ -62,7 +60,18 @@ public class VideoService {
         return awsS3Logo + URLEncoder.encode(pathKey, StandardCharsets.UTF_8.toString());
     }
 
-    public void uploadVideo(long filmId,MultipartFile file) throws IOException {
+    public String uploadFilmImage(long filmId, MultipartFile file) throws IOException {
+        String pathKey = filmId + "/" + file.getOriginalFilename();
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        s3client.putObject(new PutObjectRequest(bucketFilmName,
+                pathKey,
+                file.getInputStream(), metadata)
+                .withAccessControlList(s3client.getBucketAcl(bucketFilmName)));
+        return awsS3Film + URLEncoder.encode(pathKey, StandardCharsets.UTF_8.toString());
+    }
+
+    public String uploadVideo(long filmId,MultipartFile file) throws IOException {
         Files.createDirectory(Paths.get(inputDirectory + "\\" + filmId));
         Files.createDirectory(Paths.get(outputDirectory + "\\" + filmId));
         String inputDir = inputDirectory + "\\" + filmId + "\\input.mp4";
@@ -118,7 +127,7 @@ public class VideoService {
                 }
             }
         }
-        System.out.print(resultManifest);
+        return resultManifest;
     }
 
 
