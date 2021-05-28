@@ -22,4 +22,9 @@ public class VideoController {
         return videoService.updateUserLogo(userId, file);
     }
 
+    @PostMapping(path = "/{filmId}/uploadVideo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void uploadVideo(@PathVariable long filmId,@RequestPart("file") MultipartFile file) throws IOException {
+        videoService.uploadVideo(filmId,file);
+    }
+
 }
