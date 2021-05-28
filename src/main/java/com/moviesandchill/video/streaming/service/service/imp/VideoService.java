@@ -72,10 +72,10 @@ public class VideoService {
     }
 
     public String uploadVideo(long filmId,MultipartFile file) throws IOException {
-        Files.createDirectory(Paths.get(inputDirectory + "\\" + filmId));
-        Files.createDirectory(Paths.get(outputDirectory + "\\" + filmId));
-        String inputDir = inputDirectory + "\\" + filmId + "\\input.mp4";
-        String outputDir = outputDirectory + "\\" + filmId + "\\index.m3u8";
+        Files.createDirectory(Paths.get(inputDirectory + "/" + filmId));
+        Files.createDirectory(Paths.get(outputDirectory + "/" + filmId));
+        String inputDir = inputDirectory + "/" + filmId + "/input.mp4";
+        String outputDir = outputDirectory + "/" + filmId + "/index.m3u8";
         File copied = new File(inputDir);
         try (
                 InputStream in = new BufferedInputStream(
@@ -111,7 +111,7 @@ public class VideoService {
         executor.createJob(builder).run();
 
         String resultManifest = "";
-        File folder = new File(outputDirectory + "\\" + filmId);
+        File folder = new File(outputDirectory + "/" + filmId);
         File[] listOfFiles = folder.listFiles();
         for (File fileHls : listOfFiles) {
             if (fileHls.isFile()) {
