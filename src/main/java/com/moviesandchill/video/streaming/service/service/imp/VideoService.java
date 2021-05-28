@@ -123,7 +123,7 @@ public class VideoService {
                         new FileInputStream(fileHls), metadata)
                         .withAccessControlList(s3client.getBucketAcl(bucketHLSName)));
                 if(FilenameUtils.getExtension(fileHls.getName()).equals("m3u8")){
-                    resultManifest = awsS3HLS + URLEncoder.encode(pathKey, StandardCharsets.UTF_8.toString());
+                    resultManifest = awsS3HLS + pathKey;
                 }
             }
         }
